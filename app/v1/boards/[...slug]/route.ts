@@ -17,7 +17,7 @@ export async function GET(
         const publicDir = path.join(process.cwd(), 'public');
 
         // Ajusta o case da banca (Enem, Fuvest)
-        let [banca, ...rest] = slug;
+        let [banca] = slug;
         if (banca.toLowerCase() === 'enem') {
             banca = 'Enem';
         } else if (banca.toLowerCase() === 'fuvest') {
