@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { readFile, readdir } from 'node:fs/promises';
 import { ExamSchema } from '@/lib/zod/schemas/exams';
+import { z } from 'zod';
 
 export async function getExams(board?: string) {
     try {
@@ -10,7 +11,7 @@ export async function getExams(board?: string) {
             const items = await readdir(publicDir, { withFileTypes: true });
             const boards = items.filter(item => item.isDirectory());
             
-            let allExams = [];
+            let allExams: z.infer<typeof ExamSchema>[] = [];
             for (const boardDir of boards) {
                 const boardExams = await getBoardExams(boardDir.name);
                 allExams = [...allExams, ...boardExams];
