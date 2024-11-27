@@ -6,8 +6,8 @@
       <img alt="API ENEM" src="./docs/assets/dark.svg" height="84">
     </picture>
   </a>
-  <h3 align="center">API ENEM</h3>
-  <p align="center">API pública para consulta de provas e questões do ENEM</p>
+  <h3 align="center">API Questões</h3>
+  <p align="center">API pública para consulta de provas e questões de vestibulares</p>
   <p align="center">
     <a href="https://api.enem.dev/v1" target="_blank"><img src="https://img.shields.io/website?label=API%20Status&style=flat-square&up_color=07c983&colorA=000000&url=https%3A%2F%2Fapi.enem.dev%2Fv1" /></a>
     <img src="https://img.shields.io/github/languages/code-size/yunger7/enem-api?colorA=000000&colorB=07c983&label=Code%20size&logo=github&logoColor=ffffff&style=flat-square" />
