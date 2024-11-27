@@ -1,0 +1,172 @@
+---
+title: 'Tutorial: Como Usar a API'
+description: 'Guia passo a passo para começar a usar a API do ENEM'
+---
+
+# Tutorial da API ENEM
+
+Bem-vindo à documentação da API ENEM! Esta API fornece acesso programático às questões do ENEM (Exame Nacional do Ensino Médio) e outros vestibulares.
+
+## Base URL
+
+```
+https://enem-api.vercel.app/v1
+```
+
+## Endpoints
+
+### 1. Listar Bancas Disponíveis
+
+```http
+GET /v1/boards
+```
+
+Retorna a lista de todas as bancas disponíveis (ex: ENEM, FUVEST).
+
+Exemplo de resposta:
+```json
+{
+  "boards": [
+    {
+      "name": "Enem",
+      "url": "/v1/boards/enem"
+    }
+  ]
+}
+```
+
+### 2. Listar Anos de uma Banca
+
+```http
+GET /v1/boards/{banca}
+```
+
+Retorna todos os anos disponíveis para uma determinada banca.
+
+Exemplo: `/v1/boards/enem`
+
+```json
+{
+  "banca": "Enem",
+  "years": [
+    {
+      "year": "2012",
+      "url": "/v1/boards/enem/2012"
+    },
+    {
+      "year": "2013",
+      "url": "/v1/boards/enem/2013"
+    }
+  ]
+}
+```
+
+### 3. Listar Questões de um Ano
+
+```http
+GET /v1/boards/{banca}/{ano}
+```
+
+Retorna todas as questões disponíveis para um determinado ano.
+
+Exemplo: `/v1/boards/enem/2012`
+
+```json
+{
+  "banca": "Enem",
+  "ano": "2012",
+  "total_questions": 180,
+  "questions": [
+    {
+      "number": "1",
+      "url": "/v1/boards/enem/2012/1"
+    },
+    {
+      "number": "2",
+      "url": "/v1/boards/enem/2012/2"
+    }
+  ]
+}
+```
+
+### 4. Obter Questão Específica
+
+```http
+GET /v1/boards/{banca}/{ano}/{numero}
+```
+
+Retorna os detalhes de uma questão específica.
+
+Exemplo: `/v1/boards/enem/2012/1`
+
+```json
+{
+  "title": "Questão 1 - ENEM 2012",
+  "index": 1,
+  "year": 2012,
+  "discipline": "ciencias-humanas",
+  "context": "Texto da questão com imagem...",
+  "correctAlternative": "E",
+  "alternativesIntroduction": "Texto introdutório das alternativas",
+  "alternatives": [
+    {
+      "letter": "A",
+      "text": "Texto da alternativa A",
+      "isCorrect": false
+    }
+  ],
+  "images": [
+    "/Enem/2012/questions/1/imagem.jpg"
+  ]
+}
+```
+
+## Observações Importantes
+
+1. A API é case-insensitive para nomes de bancas (enem = Enem = ENEM)
+2. As imagens são servidas diretamente e podem ser acessadas via URL completa
+3. Todas as respostas incluem URLs para navegação entre recursos relacionados
+
+## Exemplos de Uso
+
+### JavaScript/Node.js
+```javascript
+async function getEnemQuestion() {
+  const response = await fetch('https://enem-api.vercel.app/v1/boards/enem/2012/1');
+  const question = await response.json();
+  console.log(question);
+}
+```
+
+### Python
+```python
+import requests
+
+def get_enem_question():
+    response = requests.get('https://enem-api.vercel.app/v1/boards/enem/2012/1')
+    question = response.json()
+    print(question)
+```
+
+### cURL
+```bash
+curl https://enem-api.vercel.app/v1/boards/enem/2012/1
+```
+
+## Status Codes
+
+- 200: Sucesso
+- 404: Recurso não encontrado
+- 500: Erro interno do servidor
+
+## Limites de Uso
+
+Atualmente, a API é gratuita e não requer autenticação. No entanto, recomendamos:
+
+1. Implementar cache no cliente para evitar requisições desnecessárias
+2. Limitar o número de requisições paralelas
+3. Tratar erros adequadamente
+
+## Contribuindo
+
+O código fonte está disponível no GitHub. Contribuições são bem-vindas!
